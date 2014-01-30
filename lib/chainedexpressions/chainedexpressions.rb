@@ -20,8 +20,8 @@ module ChainedExpressions
     eval <<-EOM
       refine #{c} do
         $operators.each { |k, o|
-          define_method(o) do |*exp|
-            $f.exp_true? k, exp.first
+          define_method o do |n|
+            $f.exp_true? k, n
           end
 
           alias_method k, o
@@ -41,13 +41,9 @@ module ChainedExpressions
     end
 
     $operators.each { |k, o|
-      define_method(o) do |*exp|
-        exp.each { |n|
-          $f = n
-          return false unless self.exp_true? k, n
-        }
-
-        true
+      define_method o do |n|
+        $f = n
+        self.exp_true? k, n
       end
 
       alias_method k, o
