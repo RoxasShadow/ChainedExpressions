@@ -8,7 +8,6 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #++
 
-require 'rspec'
 require 'chainedexpressions'
 using ChainedExpressions
 
