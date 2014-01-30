@@ -13,40 +13,49 @@ module ChainedExpressions
     :<   => :lt,
     :<=  => :lte,
     :>=  => :gte,
-    :>   => :gt,
+    :>   => :gt
   }
+
+  refine Numeric do
+    def eval_expression(op, n)
+      case op
+        when :<   then (self <=> n) == -1
+        when :<=  then (self <=> n) == -1 || (self <=> n) == 0
+        when :>=  then (self <=> n) ==  0 || (self <=> n) == 1
+        when :>   then (self <=> n) ==  1
+      end
+    end
+  end
 
   %w(TrueClass FalseClass).each { |c|
     eval <<-EOM
       refine #{c} do
-        $operators.each { |k, o|
-          define_method o do |n|
-            $f.exp_true? k, n
+        $operators.each { |op, o|
+          define_method o do |n|            
+            prev = $prev
+            $prev = n
+            prev.eval_expression op, n
           end
 
-          alias_method k, o
+          alias_method op, o
         }
       end
     EOM
   }
 
-  refine Fixnum do
-    def exp_true?(op, n)
-      case op
-        when :<  then (self <=> n) == -1
-        when :<= then (self <=> n) == -1 || (self <=> n) == 0
-        when :>= then (self <=> n) ==  0 || (self <=> n) == 1
-        when :>  then (self <=> n) ==  1
-      end
-    end
+  %w(Fixnum Float Bignum).each { |c|
+    eval <<-EOM
+      refine #{c} do
+        $operators.each { |op, o|
+          define_method o do |n|
+            $prev = n
+            eval_expression op, n
+          end
 
-    $operators.each { |k, o|
-      define_method o do |n|
-        $f = n
-        self.exp_true? k, n
+          alias_method op, o
+        }
       end
-
-      alias_method k, o
-    }
-  end
+    EOM
+  }
 end
+

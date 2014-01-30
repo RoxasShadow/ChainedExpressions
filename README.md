@@ -3,7 +3,7 @@ ChainedExpressions
 
 What is
 -------
-It implement Perl's chained expressions in Ruby. So you are able to do
+It implement chained expressions in Ruby. So you are able to do
 
 ```ruby
 require 'chainedexpressions'
@@ -11,6 +11,7 @@ using ChainedExpressions
 
 20 < 25
 20 < 25 < 30
+20 >  3 > 2.2 > -2
 
 20 <= 25 <= 30 <= 30 <= 35
 
