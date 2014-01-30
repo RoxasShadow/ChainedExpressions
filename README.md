@@ -6,6 +6,7 @@ What is
 It implement Perl's chained expressions in Ruby. So you are able to do
 
 ```ruby
+require 'chainedexpressions'
 using ChainedExpressions
 
 20 < 25
