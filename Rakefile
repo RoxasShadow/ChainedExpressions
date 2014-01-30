@@ -9,7 +9,7 @@ task :install do
 end
 
 task :test do
-  FileUtils.cd 'spec' do
+  FileUtils.cd 'tests' do
     sh 'rspec chainedexpressions_spec.rb --backtrace --color --format doc'
   end
 end
