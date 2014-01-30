@@ -1,3 +1,4 @@
+#! /usr/bin/env ruby
 #--
 #            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 #                    Version 2, December 2004
@@ -8,6 +9,7 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #++
 
+require 'rubygems'
 require 'chainedexpressions'
 using ChainedExpressions
 
