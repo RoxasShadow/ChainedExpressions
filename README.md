@@ -2,7 +2,7 @@ ChainedExpressions
 ==================
 
 What is
-====
+-------
 It implement Perl's chained expressions in Ruby. So you are able to do
 
 ```ruby
@@ -19,5 +19,5 @@ using ChainedExpressions
 ```
 
 Install
-====
+-------
 `$ gem install chainedexpressions`
