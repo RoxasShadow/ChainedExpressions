@@ -3,7 +3,7 @@ ChainedExpressions
 
 What is
 -------
-It implement chained expressions in Ruby. So you are able to do
+It implements chained expressions in Ruby. So you are able to do
 
 ```ruby
 require 'chainedexpressions'
