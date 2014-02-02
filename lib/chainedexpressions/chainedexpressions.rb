@@ -9,7 +9,7 @@
 #++
 
 module ChainedExpressions
-  $operators = {
+  @@operators = {
     :<   => :lt,
     :<=  => :lte,
     :>=  => :gte,
@@ -30,10 +30,10 @@ module ChainedExpressions
   %w(TrueClass FalseClass).each { |c|
     eval <<-EOM
       refine #{c} do
-        $operators.each { |op, o|
+        @@operators.each { |op, o|
           define_method o do |n|            
-            prev = $prev
-            $prev = n
+            prev = @@prev
+            @@prev = n
             prev.eval_expression op, n
           end
 
@@ -46,9 +46,9 @@ module ChainedExpressions
   %w(Fixnum Float Bignum).each { |c|
     eval <<-EOM
       refine #{c} do
-        $operators.each { |op, o|
+        @@operators.each { |op, o|
           define_method o do |n|
-            $prev = n
+            @@prev = n
             eval_expression op, n
           end
 
